@@ -12,3 +12,6 @@ class DepartmentSerializer(serializers.ModelSerializer):
     # description = serializers.CharField(max_length=255, required=False)
 
 
+
+class GetDepartmentSerializer(serializers.Serializer):
+    department_code = serializers.CharField(max_length=255, required=True)
