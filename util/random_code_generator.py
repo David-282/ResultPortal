@@ -1,9 +1,8 @@
 import random
 
 
-def matric_code(name):
-    prefix = name[:3].upper()
+def matric_code():
 
     random_number = random.randint(100000, 999999)
 
-    return f"{prefix}-{random_number}"
+    return f"{random_number}"

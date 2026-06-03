@@ -14,7 +14,7 @@ class CourseSerializer(serializers.ModelSerializer):
         return Course.objects.create(department_id=department_id, **validated_data)
 
 
-class AcademicSerializer(serializers.ModelSerializer):
+class AcademicSessionSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = AcademicSession
