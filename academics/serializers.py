@@ -7,7 +7,7 @@ class CourseSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Course
-        fields = ('department','code', 'title', 'credit_unit', 'level', 'semester', 'description')
+        fields = ('code', 'title', 'credit_unit', 'level', 'semester', 'description')
 
     def create(self,validated_data):
         department_id = self.context.get('department_id')
