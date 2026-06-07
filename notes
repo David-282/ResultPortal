@@ -1,0 +1,58 @@
+# model view set does the full crud
+# api view, it is only the method u need to use u will implement, normal url route will alos need to be done
+# ApiView
+# post(self,request,*args,**kwargs):
+# serializeer = AcademicSessionSerializer(data = request.data)
+# serializeer.is_valid(rasie_exception=True)
+# serializer.save()
+# return Reponse(serilaizer.data, status= status.HTTP_201_CReated)
+
+# .... list(self,request,*args, **Kwargs)
+# session = AcademicSerilaizer(model, many=True)
+# return Resonse(serilizer.data,ststus = .....)
+
+mixins- CreateModelMixins: supports the mthod and logic to just create and other that does only one thing like get or other
+
+modelviewset, apiview(fxn based view),
+
+
+API View set
+class AcademicSessionViewSet(APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = AcademicSessionSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+    def get(self,request, *args, **kwargs):
+        academic_sessions = AcademicSession.objects.all()
+        serializer = AcademicSessionSerializer(academic_sessions, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+
+          def post (self,request,*args,**kwargs):
+        serializer = StudentEnrollmentSerializer(data= request.data)
+        serializer.is_valid(raise_exception=True)
+
+        department_code = serializer.validated_data['department']
+        department =  Department.objects.get(department_code=department_code)
+
+
+        with transaction.atomic():
+            user = User.objects.create(
+                email = serializer.validated_data['email'],
+                username = serializer.validated_data['username'],
+                first_name = serializer.validated_data['first_name'],
+                last_name = serializer.validated_data['last_name'],
+                password = serializer.validated_data['password']
+            )
+
+            student = Student.objects.create(
+                user = user,
+                department = department,
+                entry_year = serializer.validated_data['entry_year'],
+            )
+            user.save()
+            student.save()
+
+            return Response(serializer.data,status=status.HTTP_201_CREATED)
